@@ -33,17 +33,18 @@ def delete(id):
     db.session.commit()
     return f"Task {id} removed"
 
-# @app.route('/read')
-# def read():
-#     all_tasks = Tasks.query.all()
-#     tasks_string = ""
-#     for task in all_tasks:
-#         tasks_string += "<br>"+ task.name
-#     return tasks_string
+ 
+ 
+@app.route('/completed/task/<int:id>')
+def completed(id):
+    task = Tasks.query.get(id) 
+    task.completed = True 
+    db.session.commit() 
+    return f"Task {id} completed!"
 
-# @app.route('/update/<name>')
-# def update(name):
-#     first_task = tasks.query.first()
-#     first_task.name = name
-#     db.session.commit()
-#     return first_task.name
+@app.route('/incomplete/task/<int:id>')
+def incomplete(id):
+    task = Tasks.query.get(id) 
+    task.completed = False 
+    db.session.commit() 
+    return f"Task {id} incomplete!"
