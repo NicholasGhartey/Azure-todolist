@@ -16,6 +16,8 @@ def add():
     db.session.commit()
     return f"Task with id {new_task.id} added to database"
 
+    
+
 
 @app.route('/read/allTasks')
 def read_tasks():
