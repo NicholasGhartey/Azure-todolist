@@ -2,6 +2,13 @@ from application import app, db
 from application.models import Tasks
 
 
+
+@app.route('/')
+@app.route('/home')
+def home():
+    return render_template('index.html')
+
+
 @app.route('/create/task')
 def add():
     new_task = Tasks(description="New Task")
@@ -56,3 +63,6 @@ def incomplete(id):
     task.completed = False 
     db.session.commit() 
     return f"Task {id} incomplete!"
+
+
+
