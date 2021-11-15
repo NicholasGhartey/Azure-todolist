@@ -6,7 +6,8 @@ from application.models import Tasks
 @app.route('/')
 @app.route('/home')
 def home():
-    return render_template('index.html')
+    all_tasks = Tasks.query.all()
+    return render_template('index.html', title="Home")
 
 
 @app.route('/create/task')

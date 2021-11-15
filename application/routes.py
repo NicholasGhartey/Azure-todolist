@@ -1,5 +1,13 @@
 from application import app, db
 from application.models import Tasks
+from flask import render_template
+
+
+@app.route('/')
+@app.route('/home')
+def home():
+    all_tasks = Tasks.query.all()
+    return render_template('index.html', title="Home", all_tasks=all_tasks)
 
 
 @app.route('/create/task')
@@ -13,9 +21,7 @@ def add():
 @app.route('/read/allTasks')
 def read_tasks():
     all_tasks = Tasks.query.all()
-    
     tasks_dict = {"tasks": []}
-
     for task in all_tasks:
         tasks_dict["tasks"].append({"description": task.description, "completed": task.completed})
 
@@ -56,3 +62,4 @@ def incomplete(id):
     task.completed = False 
     db.session.commit() 
     return f"Task {id} incomplete!"
+
